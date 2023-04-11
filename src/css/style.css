@@ -63,3 +63,13 @@ body {
   height: 100%;
   z-index: 1;
 }
+
+@media screen and (max-width: 768px) {
+  .time-container {
+    max-width: 50vw;
+  }
+
+  #time-text {
+    font-size: 3em;
+  }
+}
