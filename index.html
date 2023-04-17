@@ -11,11 +11,205 @@
   </head>
   <body>
     <canvas id="snow"></canvas>
-    <div class="wrap">
+    <div class="wrap blue-theme" id="bg">
+      <div class="settings" id="settings">
+        <div class="settings-container">
+          <input type="checkbox" id="settings-checkbox" tabindex="0" />
+          <img src="src/img/settings.svg" alt="" />
+        </div>
+      </div>
+
+      <div class="settings-wrapper" id="settings-wrapper">
+        <div class="settings-menu" id="settings-menu">
+          <div class="settings-list">
+            <div class="option-container" id="themepicker">
+              <span class="slider-info" id="text-choose-theme"></span>
+              <div class="theme-box blue-theme">
+                <input
+                  type="radio"
+                  name="themepicker"
+                  id="theme blue-theme"
+                  class="blue-theme"
+                  checked
+                />
+              </div>
+              <div class="theme-box red-theme">
+                <input
+                  type="radio"
+                  name="themepicker"
+                  id="theme red-theme"
+                  class="red-theme"
+                />
+              </div>
+              <div class="theme-box green-theme">
+                <input
+                  type="radio"
+                  name="themepicker"
+                  id="theme green-theme"
+                  class="green-theme"
+                />
+              </div>
+              <div class="theme-box more-themes">
+                <input
+                  type="checkbox"
+                  id="theme-settings-checkbox"
+                  tabindex="0"
+                />
+              </div>
+            </div>
+            <div class="option-container" id="degreesChanger">
+              <div class="deg-container">
+                <span class="slider-info" id="degrees-value">deg</span>
+                <input
+                  type="number"
+                  name="degNumberDegrees"
+                  id="degNumberValue"
+                  min="-360"
+                  max="360"
+                  step="1"
+                />
+              </div>
+
+              <span class="slider-info" id="degrees-info"> </span>
+              <div class="deg-range-container">
+                <input
+                  type="range"
+                  id="deg-range"
+                  min="-360"
+                  max="360"
+                  steps="1"
+                />
+              </div>
+            </div>
+
+            <div class="option-container" id="timebg">
+              <span class="slider-info" id="changeColorbasedOnTime"></span>
+              <label class="checkbox-container">
+                <input
+                  checked="checked"
+                  type="checkbox"
+                  id="time-bg-checkbox"
+                />
+                <div class="checkmark" id="checkmark"></div>
+              </label>
+            </div>
+
+            <div class="option-container" id="nieve-toggle">
+              <span class="slider-info" id="snowonoroff"></span>
+              <label class="checkbox-container">
+                <input checked="checked" type="checkbox" id="snow-checkbox" />
+                <div class="checkmark" id="checkmark"></div>
+              </label>
+            </div>
+            <div class="settings-bottom">
+              <div class="settings-bottom-container">
+                <div class="settings-bottom-text">
+                  <a
+                    href="https://github.com/PablisMB"
+                    target="_blank"
+                    class="copy"
+                    >@pablismb</a
+                  >
+                </div>
+                <div class="settings-bottom-lg">
+                  <select name="lg" id="lg-selector">
+                    <option value="es">Español</option>
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="more-themes-panel" id="more-themes-panel">
+          <div class="close-theme-panel">
+            <div class="close-theme-panel-text">Más temas</div>
+            <input type="checkbox" id="close-theme-panel" />
+            <img src="src/img/close.svg" alt="" />
+          </div>
+          <div class="more-themes-panel-container">
+            <div class="theme-box yellow-theme">
+              <input
+                type="radio"
+                name="themepicker"
+                id="theme yellow-theme"
+                class="yellow-theme"
+              />
+            </div>
+            <div class="theme-box purple-theme">
+              <input
+                type="radio"
+                name="themepicker"
+                id="theme purple-theme"
+                class="purple-theme"
+              />
+            </div>
+            <div class="theme-box orange-theme">
+              <input
+                type="radio"
+                name="themepicker"
+                id="theme orange-theme"
+                class="orange-theme"
+              />
+            </div>
+            <div class="theme-box pink-theme">
+              <input
+                type="radio"
+                name="themepicker"
+                id="theme pink-theme"
+                class="pink-theme"
+              />
+            </div>
+            <div class="theme-box brown-theme">
+              <input
+                type="radio"
+                name="themepicker"
+                id="theme brown-theme"
+                class="brown-theme"
+              />
+            </div>
+            <div class="theme-box black-theme">
+              <input
+                type="radio"
+                name="themepicker"
+                id="theme black-theme"
+                class="black-theme"
+              />
+            </div>
+            <div class="theme-box white-theme">
+              <input
+                type="radio"
+                name="themepicker"
+                id="theme white-theme"
+                class="white-theme"
+              />
+            </div>
+            <div class="theme-box lightblue-theme">
+              <input
+                type="radio"
+                name="themepicker"
+                id="theme lightblue-theme"
+                class="lightblue-theme"
+              />
+            </div>
+
+            <div class="theme-box lightgreen-theme">
+              <input
+                type="radio"
+                name="themepicker"
+                id="theme lightgreen-theme"
+                class="lightgreen-theme"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="time-container">
         <div id="time-text"></div>
-        <script src="src/js/main.js"></script>
       </div>
     </div>
+    <script src="src/js/main.js"></script>
   </body>
 </html>
