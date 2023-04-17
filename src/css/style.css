@@ -455,6 +455,7 @@ input:checked + .slider:before {
   width: 100%;
   height: 100%;
   cursor: pointer;
+  position: absolute;
 }
 
 .more-themes {
@@ -470,6 +471,8 @@ input:checked + .slider:before {
 .more-themes img {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .more-themes img:hover {
