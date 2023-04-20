@@ -74,6 +74,7 @@ function stopSnow() {
 function updateBackgroundClass() {
   var time = new Date().getHours();
   var background = document.getElementById("bg");
+  var timeText = document.getElementById("time-text");
 
   background.classList.remove(
     "early-morning",
@@ -87,24 +88,45 @@ function updateBackgroundClass() {
     "late-night"
   );
 
+  timeText.classList.remove(
+    "early-morning",
+    "morning",
+    "late-morning",
+    "noon",
+    "afternoon",
+    "late-afternoon",
+    "evening",
+    "night",
+    "late-night"
+  );
+
   if (time >= 4 && time < 6) {
     background.classList.add("early-morning");
+    timeText.classList.add("early-morning");
   } else if (time >= 6 && time < 10) {
     background.classList.add("morning");
+    timeText.classList.add("morning");
   } else if (time >= 10 && time < 12) {
     background.classList.add("late-morning");
+    timeText.classList.add("late-morning");
   } else if (time >= 12 && time < 13) {
     background.classList.add("noon");
+    timeText.classList.add("noon");
   } else if (time >= 13 && time < 16) {
     background.classList.add("afternoon");
+    timeText.classList.add("afternoon");
   } else if (time >= 16 && time < 18) {
     background.classList.add("late-afternoon");
+    timeText.classList.add("late-afternoon");
   } else if (time >= 18 && time < 20) {
     background.classList.add("evening");
+    timeText.classList.add("evening");
   } else if (time >= 20 && time < 24) {
     background.classList.add("night");
+    timeText.classList.add("night");
   } else {
     background.classList.add("late-night");
+    timeText.classList.add("late-night");
   }
 }
 
@@ -132,6 +154,7 @@ var chooseThemeText = document.getElementById("text-choose-theme");
 var rotationInfoText = document.getElementById("degrees-info");
 var changeColorOnTimeText = document.getElementById("changeColorbasedOnTime");
 var snowToggleText = document.getElementById("snowonoroff");
+var closeThemePanelText = document.getElementById("close-theme-panel-text");
 
 if (localStorage.getItem("language") === null) {
   localStorage.setItem("language", "en");
@@ -144,6 +167,7 @@ if (language === "en") {
   rotationInfoText.innerHTML = "Rotation of the current background:";
   changeColorOnTimeText.innerHTML = "Change color based on time";
   snowToggleText.innerHTML = "Snow?";
+  closeThemePanelText.innerHTML = "More themes";
 }
 
 if (language === "es") {
@@ -151,6 +175,7 @@ if (language === "es") {
   rotationInfoText.innerHTML = "Rotación del fondo actual:";
   changeColorOnTimeText.innerHTML = "Cambiar el color según la hora";
   snowToggleText.innerHTML = "Nieve?";
+  closeThemePanelText.innerHTML = "Más temas";
 }
 
 if (language === "fr") {
@@ -158,6 +183,7 @@ if (language === "fr") {
   rotationInfoText.innerHTML = "Rotation du fond actuel:";
   changeColorOnTimeText.innerHTML = "Changer la couleur en fonction de l'heure";
   snowToggleText.innerHTML = "Neige?";
+  closeThemePanelText.innerHTML = "Plus de thèmes";
 }
 
 languageSelector.addEventListener("change", function () {
@@ -228,7 +254,20 @@ timeChangingBackgroundChecked.addEventListener("change", function () {
     var bgTime = false;
     localStorage.setItem("time-bg-checkbox", bgTime);
     var background = document.getElementById("bg");
+    var timeText = document.getElementById("time-text");
     background.classList.remove(
+      "early-morning",
+      "morning",
+      "late-morning",
+      "noon",
+      "afternoon",
+      "late-afternoon",
+      "evening",
+      "night",
+      "late-night"
+    );
+
+    timeText.classList.remove(
       "early-morning",
       "morning",
       "late-morning",
