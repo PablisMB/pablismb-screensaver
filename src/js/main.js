@@ -195,6 +195,7 @@ languageSelector.addEventListener("change", function () {
     rotationInfoText.innerHTML = "Rotation of the current background:";
     changeColorOnTimeText.innerHTML = "Change color based on time";
     snowToggleText.innerHTML = "Snow?";
+    closeThemePanelText.innerHTML = "More themes";
   }
 
   if (language === "es") {
@@ -202,6 +203,7 @@ languageSelector.addEventListener("change", function () {
     rotationInfoText.innerHTML = "Rotación del fondo actual:";
     changeColorOnTimeText.innerHTML = "Cambiar el color según la hora";
     snowToggleText.innerHTML = "Nieve?";
+    closeThemePanelText.innerHTML = "Más temas";
   }
 
   if (language === "fr") {
@@ -210,6 +212,7 @@ languageSelector.addEventListener("change", function () {
     changeColorOnTimeText.innerHTML =
       "Changer la couleur en fonction de l'heure";
     snowToggleText.innerHTML = "Neige?";
+    closeThemePanelText.innerHTML = "Plus de thèmes";
   }
 });
 
