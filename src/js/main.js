@@ -14,7 +14,7 @@ var ctx = canvas.getContext("2d");
 
 var flakeCount = 150;
 var flakeSize = 2;
-var flakeSpeed = 0.8;
+var flakeSpeed = 0.25;
 
 var flakes = [];
 
@@ -27,7 +27,7 @@ function drawSnow() {
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       size: Math.random() * flakeSize,
-      speed: Math.random() * flakeSpeed + 1,
+      speed: Math.random() * flakeSpeed + 0.05,
       xSpeed: Math.random() * flakeSpeed - flakeSpeed / 2,
       ySpeed: Math.random() * flakeSpeed + flakeSpeed / 2,
     });
