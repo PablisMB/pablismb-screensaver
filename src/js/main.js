@@ -1,3 +1,17 @@
+window.onSpotifyIframeApiReady = (IFrameAPI) => {
+  const element = document.getElementById("embed-iframe");
+  const options = {
+    uri: "spotify:episode:7makk4oTQel546B0PZlDM5",
+  };
+  const callback = (EmbedController) => {};
+  IFrameAPI.createController(element, options, callback);
+};
+
+const form = document.querySelector("form");
+const searchInput = document.querySelector("#song-search");
+const searchButton = document.querySelector("#search-button");
+const iframe = document.querySelector("#spotify-player");
+
 const updateTime = () => {
   const now = new Date();
   const hours = now.getHours().toString().padStart(2, "0");
@@ -14,7 +28,7 @@ var ctx = canvas.getContext("2d");
 
 var flakeCount = 150;
 var flakeSize = 2;
-var flakeSpeed = 0.25;
+var flakeSpeed = 1;
 
 var flakes = [];
 
@@ -39,8 +53,8 @@ function drawSnow() {
     for (var i = 0; i < flakeCount; i++) {
       var flake = flakes[i];
 
-      flake.y += flake.ySpeed;
-      flake.x += flake.xSpeed;
+      flake.y += flake.ySpeed * flake.speed;
+      flake.x += flake.xSpeed * flake.speed;
 
       if (flake.y > canvas.height) {
         flake.y = 0;
@@ -148,6 +162,10 @@ var degreesValue = document.getElementById("degrees-value");
 var bgDegrees = degRange.value;
 var degNumberDegrees = document.getElementById("degNumberValue");
 var defaultbgDegrees = -135;
+var spotifyCheckbox = document.getElementById("spotify-checkbox");
+var spotifyMenu = document.getElementById("spotify-menu");
+var spotifyWrap = document.getElementById("spotify-wrapper");
+var spotifySvg = document.getElementById("spotify-svg");
 
 // Text vars
 var chooseThemeText = document.getElementById("text-choose-theme");
@@ -373,6 +391,12 @@ settingsCheckbox.addEventListener("click", function () {
   moreThemesPanel.classList.remove("active");
 });
 
+spotifyCheckbox.addEventListener("click", function () {
+  spotifyMenu.classList.toggle("active");
+  spotifyWrap.classList.toggle("active");
+  spotifySvg.classList.toggle("active");
+});
+
 themeSettingsCheckbox.addEventListener("click", function () {
   moreThemesPanel.classList.toggle("active");
 });
@@ -472,3 +496,52 @@ if (localStorage.getItem("theme") === null) {
   wrap.classList.add(themeClass);
   timeText.classList.add(themeClass);
 }
+
+const clientId = "c2e0cd2315e24a849a2332b5c571db01";
+const clientSecret = "ba77c6a6b3904c5a9b8c5d081f44ba61";
+let accessToken = "";
+
+const getAccessToken = () => {
+  const url = "https://accounts.spotify.com/api/token";
+  const data = "grant_type=client_credentials";
+  const authString = `${clientId}:${clientSecret}`;
+  const base64Auth = btoa(authString);
+
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${base64Auth}`,
+    },
+    body: data,
+  })
+    .then((response) => response.json())
+    .then((data) => data.access_token)
+    .catch((error) => console.error(error));
+};
+
+const updateIframeSrc = (trackId) => {
+  const embedUrl = `https://open.spotify.com/embed/track/${trackId}`;
+  iframe.setAttribute("src", embedUrl);
+};
+
+searchButton.addEventListener("click", async () => {
+  const query = encodeURIComponent(searchInput.value);
+  const url = `https://api.spotify.com/v1/search?type=track&q=${query}`;
+
+  if (!accessToken) {
+    accessToken = await getAccessToken();
+  }
+
+  fetch(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      const trackId = data.tracks.items[0].id;
+      updateIframeSrc(trackId);
+    })
+    .catch((error) => console.error(error));
+});

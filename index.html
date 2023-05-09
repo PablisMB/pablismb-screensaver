@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="src/css/style.css" />
     <meta author="pablismb" />
     <link rel="icon" href="src/img/elpaloxdbutnavidad.png" />
+    <script
+      src="https://open.spotify.com/embed-podcast/iframe-api/v1"
+      async
+    ></script>
     <title>Screen saver</title>
   </head>
   <body>
@@ -18,6 +22,17 @@
           <img src="src/img/settings.svg" alt="" />
         </div>
       </div>
+
+      <iframe
+        class="music-player"
+        style="border-radius: 12px"
+        src="https://open.spotify.com/embed/track/5QeOdb0nDwmrWCCVQXsGaI?utm_source=generator"
+        height="100"
+        frameborder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
 
       <div class="settings-wrapper" id="settings-wrapper">
         <div class="settings-menu" id="settings-menu">
@@ -206,6 +221,42 @@
                 class="lightgreen-theme"
               />
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spotify-svg" id="spotify-svg">
+        <div class="spotify-svg-container">
+          <input type="checkbox" id="spotify-checkbox" tabindex="0" />
+          <img src="src/img/spotify.svg" />
+        </div>
+      </div>
+
+      <div class="settings-wrapper" id="spotify-wrapper">
+        <div class="spotify-menu" id="spotify-menu">
+          <div class="searchbar">
+            <form>
+              <input
+                type="text"
+                id="song-search"
+                placeholder="Search your song..."
+                autocomplete="off"
+              />
+
+              <button type="button" id="search-button"></button>
+              <img class="glass" src="src/img/magnifying-glass.svg" alt="" />
+            </form>
+          </div>
+          <div class="songs">
+            <iframe
+              id="spotify-player"
+              src=""
+              width="300"
+              height="380"
+              frameborder="0"
+              allowtransparency="true"
+              allow="encrypted-media"
+            ></iframe>
           </div>
         </div>
       </div>
