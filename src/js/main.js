@@ -7,11 +7,6 @@ window.onSpotifyIframeApiReady = (IFrameAPI) => {
   IFrameAPI.createController(element, options, callback);
 };
 
-const form = document.querySelector("form");
-const searchInput = document.querySelector("#song-search");
-const searchButton = document.querySelector("#search-button");
-const iframe = document.querySelector("#spotify-player");
-
 const updateTime = () => {
   const now = new Date();
   const hours = now.getHours().toString().padStart(2, "0");
@@ -173,6 +168,7 @@ var rotationInfoText = document.getElementById("degrees-info");
 var changeColorOnTimeText = document.getElementById("changeColorbasedOnTime");
 var snowToggleText = document.getElementById("snowonoroff");
 var closeThemePanelText = document.getElementById("close-theme-panel-text");
+var songPlaceholderText = document.getElementById("song-search");
 
 if (localStorage.getItem("language") === null) {
   localStorage.setItem("language", "en");
@@ -186,6 +182,7 @@ if (language === "en") {
   changeColorOnTimeText.innerHTML = "Change color based on time";
   snowToggleText.innerHTML = "Snow?";
   closeThemePanelText.innerHTML = "More themes";
+  songPlaceholderText.placeholder = "Search for a song...";
 }
 
 if (language === "es") {
@@ -194,6 +191,7 @@ if (language === "es") {
   changeColorOnTimeText.innerHTML = "Cambiar el color según la hora";
   snowToggleText.innerHTML = "Nieve?";
   closeThemePanelText.innerHTML = "Más temas";
+  songPlaceholderText.placeholder = "Busca una canción...";
 }
 
 if (language === "fr") {
@@ -202,6 +200,7 @@ if (language === "fr") {
   changeColorOnTimeText.innerHTML = "Changer la couleur en fonction de l'heure";
   snowToggleText.innerHTML = "Neige?";
   closeThemePanelText.innerHTML = "Plus de thèmes";
+  songPlaceholderText.placeholder = "Rechercher une chanson...";
 }
 
 languageSelector.addEventListener("change", function () {
@@ -214,6 +213,7 @@ languageSelector.addEventListener("change", function () {
     changeColorOnTimeText.innerHTML = "Change color based on time";
     snowToggleText.innerHTML = "Snow?";
     closeThemePanelText.innerHTML = "More themes";
+    songPlaceholderText.placeholder = "Search for a song...";
   }
 
   if (language === "es") {
@@ -222,6 +222,7 @@ languageSelector.addEventListener("change", function () {
     changeColorOnTimeText.innerHTML = "Cambiar el color según la hora";
     snowToggleText.innerHTML = "Nieve?";
     closeThemePanelText.innerHTML = "Más temas";
+    songPlaceholderText.placeholder = "Busca una canción...";
   }
 
   if (language === "fr") {
@@ -231,6 +232,7 @@ languageSelector.addEventListener("change", function () {
       "Changer la couleur en fonction de l'heure";
     snowToggleText.innerHTML = "Neige?";
     closeThemePanelText.innerHTML = "Plus de thèmes";
+    songPlaceholderText.placeholder = "Rechercher une chanson...";
   }
 });
 
@@ -497,6 +499,12 @@ if (localStorage.getItem("theme") === null) {
   timeText.classList.add(themeClass);
 }
 
+const form = document.querySelector("form");
+const searchInput = document.querySelector("#song-search");
+const searchButton = document.querySelector("#search-button");
+const iframe = document.querySelector("#spotify-player");
+const iframeUser = document.querySelector("#music-player");
+
 const clientId = "c2e0cd2315e24a849a2332b5c571db01";
 const clientSecret = "ba77c6a6b3904c5a9b8c5d081f44ba61";
 let accessToken = "";
@@ -523,7 +531,13 @@ const getAccessToken = () => {
 const updateIframeSrc = (trackId) => {
   const embedUrl = `https://open.spotify.com/embed/track/${trackId}`;
   iframe.setAttribute("src", embedUrl);
+  iframeUser.setAttribute("src", embedUrl);
 };
+
+let savedTrackId = localStorage.getItem("trackId");
+if (savedTrackId) {
+  updateIframeSrc(savedTrackId);
+}
 
 searchButton.addEventListener("click", async () => {
   const query = encodeURIComponent(searchInput.value);
@@ -542,6 +556,7 @@ searchButton.addEventListener("click", async () => {
     .then((data) => {
       const trackId = data.tracks.items[0].id;
       updateIframeSrc(trackId);
+      localStorage.setItem("trackId", trackId);
     })
     .catch((error) => console.error(error));
 });
