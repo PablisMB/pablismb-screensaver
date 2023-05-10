@@ -1,9 +1,9 @@
 window.onSpotifyIframeApiReady = (IFrameAPI) => {
-  const element = document.getElementById("embed-iframe");
-  const options = {
+  let element = document.getElementById("embed-iframe");
+  let options = {
     uri: "spotify:episode:7makk4oTQel546B0PZlDM5",
   };
-  const callback = (EmbedController) => {};
+  let callback = (EmbedController) => {};
   IFrameAPI.createController(element, options, callback);
 };
 
@@ -399,8 +399,13 @@ spotifyCheckbox.addEventListener("click", function () {
   spotifySvg.classList.toggle("active");
 });
 
+var moreThemesPanelContainer = document.querySelector(
+  ".more-themes-panel-container"
+);
+
 themeSettingsCheckbox.addEventListener("click", function () {
   moreThemesPanel.classList.toggle("active");
+  moreThemesPanelContainer.classList.toggle("active");
 });
 
 closeThemePanel.addEventListener("click", function () {
@@ -488,7 +493,6 @@ timeText.classList.remove(
 if (themeClass) {
   wrap.classList.add(themeClass);
   timeText.classList.add(themeClass);
-  document.getElementById(themeClass).checked = true;
 }
 
 if (localStorage.getItem("theme") === null) {
@@ -504,6 +508,22 @@ const searchInput = document.querySelector("#song-search");
 const searchButton = document.querySelector("#search-button");
 const iframe = document.querySelector("#spotify-player");
 const iframeUser = document.querySelector("#music-player");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
+
+iframe.addEventListener("play", () => {
+  if (!iframeUser.paused) {
+    iframeUser.pause();
+  }
+});
+
+iframeUser.addEventListener("play", () => {
+  if (!iframe.paused) {
+    iframe.pause();
+  }
+});
 
 const clientId = "c2e0cd2315e24a849a2332b5c571db01";
 const clientSecret = "ba77c6a6b3904c5a9b8c5d081f44ba61";
@@ -528,18 +548,14 @@ const getAccessToken = () => {
     .catch((error) => console.error(error));
 };
 
-const updateIframeSrc = (trackId) => {
-  const embedUrl = `https://open.spotify.com/embed/track/${trackId}`;
-  iframe.setAttribute("src", embedUrl);
-  iframeUser.setAttribute("src", embedUrl);
-};
+searchButton.addEventListener("click", searchTrack);
+searchInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    searchTrack();
+  }
+});
 
-let savedTrackId = localStorage.getItem("trackId");
-if (savedTrackId) {
-  updateIframeSrc(savedTrackId);
-}
-
-searchButton.addEventListener("click", async () => {
+async function searchTrack() {
   const query = encodeURIComponent(searchInput.value);
   const url = `https://api.spotify.com/v1/search?type=track&q=${query}`;
 
@@ -559,4 +575,22 @@ searchButton.addEventListener("click", async () => {
       localStorage.setItem("trackId", trackId);
     })
     .catch((error) => console.error(error));
+}
+
+const updateIframeSrc = (trackId) => {
+  const embedUrl = `https://open.spotify.com/embed/track/${trackId}`;
+  iframe.setAttribute("src", embedUrl);
+  iframeUser.setAttribute("src", embedUrl);
+};
+
+const trackId = localStorage.getItem("trackId");
+if (trackId) {
+  updateIframeSrc(trackId);
+}
+
+const buttons = document.querySelectorAll(".zxky3zhmh_vhWlndRKVG");
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    buttons.forEach((btn) => btn.click());
+  });
 });
